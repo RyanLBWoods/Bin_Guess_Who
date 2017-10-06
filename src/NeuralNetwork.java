@@ -62,10 +62,11 @@ public class NeuralNetwork {
         } while(train.getError() > 0.01);
         train.finishTraining();
         
-        double[] t = new double[]{0, 1, 1, 0, 0, 0, 1};
-        MLData data = new BasicMLData(t);
+        double[] in = GamePlay.playGame();
+
+        MLData data = new BasicMLData(in);
         MLData output = network.compute(data);
-        
+
         System.out.println("input = " + data.getData(0) + " " + data.getData(1) + " " + data.getData(2) + " " + data.getData(3) + " " + data.getData(4) + " " + data.getData(5) + " " + data.getData(6));
         System.out.println("actual = " + output.getData(0) + " " + output.getData(1) + " " + output.getData(2) + " " + output.getData(3) + " " + output.getData(4));
 	}
