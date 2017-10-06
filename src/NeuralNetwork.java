@@ -1,5 +1,7 @@
 import org.encog.engine.network.activation.ActivationSigmoid;
+import org.encog.ml.data.MLData;
 import org.encog.ml.data.MLDataSet;
+import org.encog.ml.data.basic.BasicMLData;
 import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
@@ -16,8 +18,8 @@ public class NeuralNetwork {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 	    String[] dataset = GetDataset.getData();
-	    double input[][] = new double[35][7];
-	    double ouput[][] = {Alex, Alfred, Anita, Anne, Bernard,
+	    double INPUT[][] = new double[35][7];
+	    double OUTPUT[][] = {Alex, Alfred, Anita, Anne, Bernard,
 	            Alex, Alfred, Anita, Anne, Bernard,
 	            Alex, Alfred, Anita, Anne, Bernard,
 	            Alex, Alfred, Anita, Anne, Bernard,
@@ -32,11 +34,11 @@ public class NeuralNetwork {
 	            } else if(chr[j].equals("Yes")){
 	                chr[j] = "1";
 	            }
-	            input[i][j] = Integer.valueOf(chr[j]);
+	            INPUT[i][j] = Integer.valueOf(chr[j]);
 	        }
 	    }
 	    
-	    MLDataSet trainingSet = new BasicMLDataSet(input, ouput);
+	    MLDataSet trainingSet = new BasicMLDataSet(INPUT, OUTPUT);
 	    
 	    int input_units = 7;
 	    int hidden_units = 10;
@@ -54,14 +56,18 @@ public class NeuralNetwork {
         network.reset();
         
         Backpropagation train = new Backpropagation(network, trainingSet, 0.5, 0.3);        
-        int epoch = 1;
         
         do {
             train.iteration();
-            System.out.println("Epoch #" + epoch + " Error: " + train.getError());
-            epoch++;
         } while(train.getError() > 0.01);
         train.finishTraining();
+        
+        double[] t = new double[]{0, 1, 1, 0, 0, 0, 1};
+        MLData data = new BasicMLData(t);
+        MLData output = network.compute(data);
+        
+        System.out.println("input = " + data.getData(0) + " " + data.getData(1) + " " + data.getData(2) + " " + data.getData(3) + " " + data.getData(4) + " " + data.getData(5) + " " + data.getData(6));
+        System.out.println("actual = " + output.getData(0) + " " + output.getData(1) + " " + output.getData(2) + " " + output.getData(3) + " " + output.getData(4));
 	}
 
 }
