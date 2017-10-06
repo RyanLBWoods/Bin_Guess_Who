@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 import org.encog.engine.network.activation.ActivationSigmoid;
 import org.encog.ml.data.MLData;
 import org.encog.ml.data.MLDataSet;
@@ -14,7 +16,8 @@ public class NeuralNetwork {
 	final static double[] Anita = {0, 0, 1, 0, 0};
     final static double[] Anne = {0, 0, 0, 1, 0};
     final static double[] Bernard = {0, 0, 0, 0, 1};
-
+    static BasicNetwork network = new BasicNetwork();
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 	    String[] dataset = GetDataset.getData();
@@ -44,7 +47,7 @@ public class NeuralNetwork {
 	    int hidden_units = 10;
 	    int output_units = 5;
 	    
-        BasicNetwork network = new BasicNetwork();
+        
   
         network.addLayer(new BasicLayer(null, false, input_units));
         
@@ -62,13 +65,35 @@ public class NeuralNetwork {
         } while(train.getError() > 0.01);
         train.finishTraining();
         
-        double[] in = GamePlay.playGame();
-
-        MLData data = new BasicMLData(in);
+        double[] answer = GamePlay.playGame();
+        String who = guessWho(answer);
+        
+        System.out.println("Your character is " + who + "!");
+        
+	}
+	
+	private static String guessWho(double[] answer){
+        MLData data = new BasicMLData(answer);
         MLData output = network.compute(data);
 
-        System.out.println("input = " + data.getData(0) + " " + data.getData(1) + " " + data.getData(2) + " " + data.getData(3) + " " + data.getData(4) + " " + data.getData(5) + " " + data.getData(6));
-        System.out.println("actual = " + output.getData(0) + " " + output.getData(1) + " " + output.getData(2) + " " + output.getData(3) + " " + output.getData(4));
+        double[] out = new double[5];
+        for(int i = 0; i < output.size(); i++){
+            out[i] = Math.round(output.getData(i));
+        }
+
+        if(Arrays.equals(out, Alex)){
+            return "Alex";
+        } else if (Arrays.equals(out, Alfred)){
+            return "Alfred";
+        } else if (Arrays.equals(out, Anita)){
+            return "Anita";
+        } else if (Arrays.equals(out, Anne)){
+            return "Anne";
+        } else if (Arrays.equals(out, Bernard)){
+            return "Bernard";
+        }
+	    return "not in the list";
+	    
 	}
 
 }
