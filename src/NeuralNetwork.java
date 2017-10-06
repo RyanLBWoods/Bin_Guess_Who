@@ -68,7 +68,7 @@ public class NeuralNetwork {
         double[] answer = GamePlay.playGame();
         String who = guessWho(answer);
         
-        System.out.println("Your character is " + who + "!");
+        System.out.println(who);
         
 	}
 	
@@ -82,17 +82,17 @@ public class NeuralNetwork {
         }
 
         if(Arrays.equals(out, Alex)){
-            return "Alex";
+            return "Your character is Alex!";
         } else if (Arrays.equals(out, Alfred)){
-            return "Alfred";
+            return "Your character is Alfred!";
         } else if (Arrays.equals(out, Anita)){
-            return "Anita";
+            return "Your character is Anita!";
         } else if (Arrays.equals(out, Anne)){
-            return "Anne";
+            return "Your character is Anne!";
         } else if (Arrays.equals(out, Bernard)){
-            return "Bernard";
+            return "Your character is Bernard!";
         }
-	    return "not in the list";
+	    return "You have incorrect answer!";
 	    
 	}
 
