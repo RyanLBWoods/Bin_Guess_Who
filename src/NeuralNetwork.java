@@ -53,7 +53,7 @@ public class NeuralNetwork {
 	    MLDataSet trainingSet = new BasicMLDataSet(INPUT, OUTPUT);
 	    
 	    int input_units = 7;
-	    int hidden_units = 5;
+	    int hidden_units = 14;
 	    int output_units = 5;
 	    
 
@@ -66,7 +66,7 @@ public class NeuralNetwork {
         network.getStructure().finalizeStructure();
         network.reset();
         
-        Backpropagation train = new Backpropagation(network, trainingSet, 0.5, 0.3);        
+        Backpropagation train = new Backpropagation(network, trainingSet, 0.03, 0);        
         
         do {
             train.iteration();
