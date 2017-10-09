@@ -75,7 +75,7 @@ public class NeuralNetwork {
 	    network = new BasicNetwork();
 	    MLDataSet trainingSet = new BasicMLDataSet(new_input, new_output);
         int input_units = 7;
-        int hidden_units = 14;
+        int hidden_units = 5;
         int output_units = 6;
         
         
@@ -101,7 +101,7 @@ public class NeuralNetwork {
 	    MLDataSet trainingSet = new BasicMLDataSet(INPUT, OUTPUT);
 	    
 	    int input_units = 7;
-	    int hidden_units = 14;
+	    int hidden_units = 5;
 	    int output_units = 5;
 	    
 
@@ -125,7 +125,7 @@ public class NeuralNetwork {
 	public static double[] earlyGuess(double[] answer){
 	    MLData data = new BasicMLData(answer);
         MLData output = network.compute(data);
-
+        
         double[] out = new double[5];
         for(int i = 0; i < output.size(); i++){
             out[i] = Math.round(output.getData(i));

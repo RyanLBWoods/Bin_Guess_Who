@@ -59,9 +59,7 @@ public class AddCharacter extends NeuralNetwork{
         }
         for(x = 0;x < new_data.length;x++){
             INPUT[m][x] = new_data[x];
-//            System.out.println(INPUT[m][x]);
         }
-        System.out.println(INPUT.length);
         return INPUT;   
     }
     
@@ -71,7 +69,6 @@ public class AddCharacter extends NeuralNetwork{
     }
     
     public static double[][] addCharacter(){
-        System.out.println(New_OUTPUT.length);
         return New_OUTPUT;
     }
     

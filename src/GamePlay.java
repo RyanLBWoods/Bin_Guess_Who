@@ -184,11 +184,11 @@ public static double[] playGameAgain(){
             answers[0] = Double.valueOf(answer[0]);
             answers_yes[0] = Double.valueOf(answer[0]);
         }
-        System.out.println(answers_yes.length);
         early_yes = NeuralNetwork.earlyGuessAgain(answers_yes);
         early_no = NeuralNetwork.earlyGuessAgain(answers);
         if(Arrays.equals(early_yes, early_no)){
             if(!Arrays.equals(early_yes, invalid_early) && !Arrays.equals(early_no, invalid_early)){
+                sc.close();
                 return early_yes;
             }
         }
@@ -209,6 +209,7 @@ public static double[] playGameAgain(){
         early_no = NeuralNetwork.earlyGuessAgain(answers);
         if(Arrays.equals(early_yes, early_no)){
             if(!Arrays.equals(early_yes, invalid_early) && !Arrays.equals(early_no, invalid_early)){
+                sc.close();
                 return early_yes;
             }
         }
@@ -229,6 +230,7 @@ public static double[] playGameAgain(){
         early_no = NeuralNetwork.earlyGuessAgain(answers);
         if(Arrays.equals(early_yes, early_no)){
             if(!Arrays.equals(early_yes, invalid_early) && !Arrays.equals(early_no, invalid_early)){
+                sc.close();
                 return early_yes;
             }
         }
@@ -249,6 +251,7 @@ public static double[] playGameAgain(){
         early_no = NeuralNetwork.earlyGuessAgain(answers);
         if(Arrays.equals(early_yes, early_no)){
             if(!Arrays.equals(early_yes, invalid_early) && !Arrays.equals(early_no, invalid_early)){
+                sc.close();
                 return early_yes;
             }
         }
@@ -269,6 +272,7 @@ public static double[] playGameAgain(){
         early_no = NeuralNetwork.earlyGuessAgain(answers);
         if(Arrays.equals(early_yes, early_no)){
             if(!Arrays.equals(early_yes, invalid_early) && !Arrays.equals(early_no, invalid_early)){
+                sc.close();
                 return early_yes;
             }
         }
@@ -289,6 +293,7 @@ public static double[] playGameAgain(){
         early_no = NeuralNetwork.earlyGuessAgain(answers);
         if(Arrays.equals(early_yes, early_no)){
             if(!Arrays.equals(early_yes, invalid_early) && !Arrays.equals(early_no, invalid_early)){
+                sc.close();
                 return early_yes;
             }
         }
@@ -315,6 +320,7 @@ public static double[] playGameAgain(){
                 answers[i] = Double.valueOf(answer[i]);
             }
         }
+        sc.close();
         return NeuralNetwork.earlyGuessAgain(answers);
     }
 }
