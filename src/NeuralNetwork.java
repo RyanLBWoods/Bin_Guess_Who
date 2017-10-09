@@ -11,11 +11,11 @@ import org.encog.neural.networks.training.propagation.back.Backpropagation;
 
 public class NeuralNetwork {
     
-	final static double[] Alex = {1, 0, 0, 0, 0};
-	final static double[] Alfred = {0, 1, 0, 0, 0};
-	final static double[] Anita = {0, 0, 1, 0, 0};
-    final static double[] Anne = {0, 0, 0, 1, 0};
-    final static double[] Bernard = {0, 0, 0, 0, 1};
+	public final static double[] Alex = {1, 0, 0, 0, 0};
+	public final static double[] Alfred = {0, 1, 0, 0, 0};
+	public final static double[] Anita = {0, 0, 1, 0, 0};
+	public final static double[] Anne = {0, 0, 0, 1, 0};
+	public final static double[] Bernard = {0, 0, 0, 0, 1};
     static BasicNetwork network = new BasicNetwork();
     static double INPUT[][] = new double[35][7];
 	static double OUTPUT[][] = {Alex, Alfred, Anita, Anne, Bernard,
@@ -53,11 +53,10 @@ public class NeuralNetwork {
 	    MLDataSet trainingSet = new BasicMLDataSet(INPUT, OUTPUT);
 	    
 	    int input_units = 7;
-	    int hidden_units = 10;
+	    int hidden_units = 5;
 	    int output_units = 5;
 	    
-        
-  
+
         network.addLayer(new BasicLayer(null, false, input_units));
         
         network.addLayer(new BasicLayer(new ActivationSigmoid(), true, hidden_units));
@@ -75,14 +74,25 @@ public class NeuralNetwork {
         train.finishTraining();
 	}
 	
-	private static String guessWho(double[] answer){
-        MLData data = new BasicMLData(answer);
+	public static double[] earlyGuess(double[] answer){
+	    MLData data = new BasicMLData(answer);
         MLData output = network.compute(data);
 
         double[] out = new double[5];
         for(int i = 0; i < output.size(); i++){
             out[i] = Math.round(output.getData(i));
         }
+        return out;
+	}
+	
+	public static String guessWho(double[] out){
+//        MLData data = new BasicMLData(answer);
+//        MLData output = network.compute(data);
+//
+//        double[] out = new double[5];
+//        for(int i = 0; i < output.size(); i++){
+//            out[i] = Math.round(output.getData(i));
+//        }
 
         if(Arrays.equals(out, Alex)){
             return "Your character is Alex!";
