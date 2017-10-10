@@ -28,7 +28,7 @@ public class GamePlay {
             answers[0] = Double.valueOf(answer[0]);
             answers_yes[0] = Double.valueOf(answer[0]);
         }
-        System.out.println(answers_yes.length);
+
         early_yes = NeuralNetwork.earlyGuess(answers_yes);
         early_no = NeuralNetwork.earlyGuess(answers);
         if(Arrays.equals(early_yes, early_no)){

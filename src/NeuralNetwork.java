@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -9,6 +10,7 @@ import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
 import org.encog.neural.networks.training.propagation.back.Backpropagation;
+import org.encog.persist.EncogDirectoryPersistence;
 
 public class NeuralNetwork {
     
@@ -17,7 +19,7 @@ public class NeuralNetwork {
 	public static double[] Anita = {0, 0, 1, 0, 0};
 	public static double[] Anne = {0, 0, 0, 1, 0};
 	public static double[] Bernard = {0, 0, 0, 0, 1};
-    static BasicNetwork network = new BasicNetwork();
+    static BasicNetwork network;
     public final static int Charactor_Number = 7;
     public final static int Data_Size = 35;
     public static double INPUT[][] = new double[Data_Size][Charactor_Number ];
@@ -34,7 +36,9 @@ public class NeuralNetwork {
 	static String[] new_ch = new String[7];
     private static double[][] new_input = new double[36][7];
     private static double[][] new_output = new double[36][6];
+    public static BasicNetwork load_net = (BasicNetwork) EncogDirectoryPersistence.loadObject(new File("my_NN.eg"));
 
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 	    String[] dataset = GetDataset.getData();
@@ -51,7 +55,7 @@ public class NeuralNetwork {
 	        }
 	    }
 	    
-	    trainNeuralNet();
+	    System.out.println("Loading network...");
         String who = guessWho(GamePlay.playGame());
         System.out.println(who);
 
@@ -97,34 +101,9 @@ public class NeuralNetwork {
         train.finishTraining();
 	}
 	
-	private static void trainNeuralNet(){
-	    MLDataSet trainingSet = new BasicMLDataSet(INPUT, OUTPUT);
-	    
-	    int input_units = 7;
-	    int hidden_units = 5;
-	    int output_units = 5;
-	    
-
-        network.addLayer(new BasicLayer(null, false, input_units));
-        
-        network.addLayer(new BasicLayer(new ActivationSigmoid(), true, hidden_units));
-          
-        network.addLayer(new BasicLayer(new ActivationSigmoid(), false, output_units));
-          
-        network.getStructure().finalizeStructure();
-        network.reset();
-        
-        Backpropagation train = new Backpropagation(network, trainingSet, 0.03, 0);        
-        
-        do {
-            train.iteration();
-        } while(train.getError() > 0.01);
-        train.finishTraining();
-	}
-	
 	public static double[] earlyGuess(double[] answer){
 	    MLData data = new BasicMLData(answer);
-        MLData output = network.compute(data);
+        MLData output = load_net.compute(data);
         
         double[] out = new double[5];
         for(int i = 0; i < output.size(); i++){
