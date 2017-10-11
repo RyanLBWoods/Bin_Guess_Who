@@ -65,7 +65,6 @@ public class NeuralNetwork {
             new_input = AddCharacter.addCharactor();
             new_output = AddCharacter.addCharacter();
             new_name = AddCharacter.getNewName();
-            System.out.println(new_name);
             trainNewNet(new_input, new_output);
             who = guessWho(GamePlay.playGameAgain());
             System.out.println(who);
@@ -81,8 +80,6 @@ public class NeuralNetwork {
         int input_units = 7;
         int hidden_units = 5;
         int output_units = 6;
-        
-        
         
         network.addLayer(new BasicLayer(null, false, input_units));
         
